@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProctorShield - AI Proctoring System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>ProctorShield</h1>
+                </div>
+                <div class="nav-toggle" id="navToggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="/dashboard" class="active">Dashboard</a></li>
+                    <li><a href="/text-analysis">Text Analysis</a></li>
+                    <li><a href="/video-surveillance">Video Surveillance</a></li>
+                    <li><a href="/reports">Reports</a></li>
+                    <li><a href="/settings">Settings</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Dashboard Section -->
+        <section id="dashboard" class="active-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                    <p>System overview and key metrics</p>
+                </div>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Active Sessions</h3>
+                            <p class="stat-value">24</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Flagged Incidents</h3>
+                            <p class="stat-value">7</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>Completed Exams</h3>
+                            <p class="stat-value">96</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon info">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-details">
+                            <h3>System Uptime</h3>
+                            <p class="stat-value">99.8%</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-row">
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>Recent Incidents</h3>
+                            <button class="btn-small">View All</button>
+                        </div>
+                        <div class="card-content">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Type</th>
+                                        <th>Student</th>
+                                        <th>Time</th>
+                                        <th>Severity</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><span class="badge warning"><i class="fas fa-search"></i> Text Similarity</span></td>
+                                        <td>John Smith</td>
+                                        <td>10:42 AM</td>
+                                        <td><span class="severity-indicator high"></span> High</td>
+                                        <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge danger"><i class="fas fa-mobile-alt"></i> Device Detected</span></td>
+                                        <td>Emily Johnson</td>
+                                        <td>09:15 AM</td>
+                                        <td><span class="severity-indicator critical"></span> Critical</td>
+                                        <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span class="badge warning"><i class="fas fa-user-friends"></i> Multiple Faces</span></td>
+                                        <td>Michael Brown</td>
+                                        <td>Yesterday</td>
+                                        <td><span class="severity-indicator medium"></span> Medium</td>
+                                        <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-header">
+                            <h3>System Status</h3>
+                            <button class="btn-small">Refresh</button>
+                        </div>
+                        <div class="card-content">
+                            <div class="status-item">
+                                <div class="status-label">Text Analysis Module</div>
+                                <div class="status-value online">Online</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-label">Video Surveillance Module</div>
+                                <div class="status-value online">Online</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-label">Report Generation</div>
+                                <div class="status-value online">Online</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-label">LMS Integration</div>
+                                <div class="status-value warning">Maintenance</div>
+                            </div>
+                            <div class="status-item">
+                                <div class="status-label">Database Connection</div>
+                                <div class="status-value online">Online</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Text Analysis Section -->
+        <section id="text-analysis">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Text Analysis</h2>
+                    <p>Text similarity detection module</p>
+                </div>
+                
+                <div class="text-analysis-controls">
+                    <div class="control-group">
+                        <label for="text-algorithm">Algorithm</label>
+                        <select id="text-algorithm" class="form-control">
+                            <option value="kmp">Knuth-Morris-Pratt (KMP)</option>
+                            <option value="rabin-karp">Rabin-Karp</option>
+                            <option value="levenshtein">Levenshtein Distance</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="similarity-threshold">Similarity Threshold (%)</label>
+                        <input type="range" id="similarity-threshold" min="50" max="100" value="75" class="form-control slider">
+                        <span class="slider-value">75%</span>
+                    </div>
+                </div>
+                
+                <div class="text-comparison-container">
+                    <div class="text-input">
+                        <h3>Sample Text 1</h3>
+                        <textarea class="form-control" placeholder="Enter text sample..."></textarea>
+                    </div>
+                    
+                    <div class="text-input">
+                        <h3>Sample Text 2</h3>
+                        <textarea class="form-control" placeholder="Enter text sample..."></textarea>
+                    </div>
+                </div>
+                
+                <div class="action-bar">
+                    <button class="btn btn-primary">Analyze Similarity</button>
+                    <button class="btn btn-secondary">Clear Inputs</button>
+                </div>
+                
+                <div class="results-container" id="textResults">
+                    <h3>Analysis Results</h3>
+                    <div class="result-summary">
+                        <div class="similarity-meter">
+                            <div class="meter-fill" style="width: 68%"></div>
+                        </div>
+                        <div class="similarity-value">68% Similar</div>
+                    </div>
+                    
+                    <div class="detailed-results">
+                        <h4>Matched Patterns</h4>
+                        <div class="matched-text">
+                            <p>The quick brown fox <mark>jumps over the lazy dog</mark>. This is a <mark>common pangram</mark> used in typing practice.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Video Surveillance Section -->
+        <section id="video-surveillance">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Video Surveillance</h2>
+                    <p>Real-time monitoring and behavior detection</p>
+                </div>
+                
+                <div class="video-container">
+                    <div class="video-feed">
+                        <div class="video-placeholder">
+                            <i class="fas fa-video"></i>
+                            <p>Camera Feed</p>
+                        </div>
+                        <div class="video-controls">
+                            <button class="btn-icon"><i class="fas fa-play"></i></button>
+                            <button class="btn-icon"><i class="fas fa-pause"></i></button>
+                            <button class="btn-icon"><i class="fas fa-stop"></i></button>
+                            <button class="btn-icon"><i class="fas fa-camera"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="detection-panel">
+                        <h3>Detection Settings</h3>
+                        
+                        <div class="detection-setting">
+                            <div class="setting-label">Face Detection</div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="detection-setting">
+                            <div class="setting-label">Eye Tracking</div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="detection-setting">
+                            <div class="setting-label">Motion Detection</div>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="detection-setting">
+                            <div class="setting-label">Object Detection</div>
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        
+                        <h3>Detection Sensitivity</h3>
+                        <div class="detection-setting">
+                            <div class="setting-label">Motion Sensitivity</div>
+                            <input type="range" min="1" max="100" value="70" class="form-control slider">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="activity-log">
+                    <h3>Activity Log</h3>
+                    <div class="log-entries">
+                        <div class="log-entry">
+                            <span class="log-time">10:42:15</span>
+                            <span class="log-type warning">Multiple faces detected</span>
+                            <span class="log-message">2 faces detected in frame</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">10:41:03</span>
+                            <span class="log-type success">Face verified</span>
+                            <span class="log-message">Student identity confirmed</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">10:40:27</span>
+                            <span class="log-type danger">Phone detected</span>
+                            <span class="log-message">Unauthorized device detected</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="log-time">10:39:15</span>
+                            <span class="log-type info">Session started</span>
+                            <span class="log-message">Video monitoring initialized</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Reports Section -->
+        <section id="reports">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Reports</h2>
+                    <p>Generate and export detailed proctoring reports</p>
+                </div>
+                
+                <div class="report-filters">
+                    <div class="filter-group">
+                        <label for="report-date">Date Range</label>
+                        <select id="report-date" class="form-control">
+                            <option value="today">Today</option>
+                            <option value="yesterday">Yesterday</option>
+                            <option value="week">Last 7 Days</option>
+                            <option value="month">Last 30 Days</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="report-type">Report Type</label>
+                        <select id="report-type" class="form-control">
+                            <option value="all">All Activities</option>
+                            <option value="text">Text Similarity</option>
+                            <option value="video">Video Surveillance</option>
+                            <option value="combined">Combined Analysis</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="report-severity">Severity Level</label>
+                        <select id="report-severity" class="form-control">
+                            <option value="all">All Levels</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                            <option value="critical">Critical</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="action-bar">
+                    <button class="btn btn-primary">Generate Report</button>
+                    <button class="btn btn-secondary">Clear Filters</button>
+                    <button class="btn btn-outline"><i class="fas fa-download"></i> Export as PDF</button>
+<button class="btn btn-outline"><i class="fas fa-file-csv"></i> Export as CSV</button>
+</div>
+
+<div class="reports-container">
+    <div class="report-summary">
+        <h3>Report Summary</h3>
+        <div class="summary-stats">
+            <div class="summary-stat">
+                <div class="stat-label">Total Sessions</div>
+                <div class="stat-value">127</div>
+            </div>
+            <div class="summary-stat">
+                <div class="stat-label">Flagged Incidents</div>
+                <div class="stat-value">23</div>
+            </div>
+            <div class="summary-stat">
+                <div class="stat-label">Average Score</div>
+                <div class="stat-value">84.3%</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="report-results">
+        <h3>Detailed Results</h3>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Session ID</th>
+                    <th>Student</th>
+                    <th>Date</th>
+                    <th>Duration</th>
+                    <th>Violations</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>#12345</td>
+                    <td>John Smith</td>
+                    <td>03/15/2025</td>
+                    <td>1h 23m</td>
+                    <td>2</td>
+                    <td><span class="badge warning">Review</span></td>
+                    <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                    <td>#12346</td>
+                    <td>Emily Johnson</td>
+                    <td>03/15/2025</td>
+                    <td>1h 45m</td>
+                    <td>0</td>
+                    <td><span class="badge success">Passed</span></td>
+                    <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                    <td>#12347</td>
+                    <td>Michael Brown</td>
+                    <td>03/14/2025</td>
+                    <td>2h 10m</td>
+                    <td>5</td>
+                    <td><span class="badge danger">Failed</span></td>
+                    <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
+                </tr>
+                <tr>
+                    <td>#12348</td>
+                    <td>Sarah Wilson</td>
+                    <td>03/14/2025</td>
+                    <td>1h 30m</td>
+                    <td>1</td>
+                    <td><span class="badge warning">Review</span></td>
+                    <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
+</section>
+
+<!-- Settings Section -->
+<section id="settings">
+    <div class="container">
+        <div class="section-header">
+            <h2>Settings</h2>
+            <p>Configure system preferences and detection parameters</p>
+        </div>
+        
+        <div class="settings-grid">
+            <div class="settings-card">
+                <div class="card-header">
+                    <h3>General Settings</h3>
+                </div>
+                <div class="card-content">
+                    <div class="setting-item">
+                        <div class="setting-label">System Notifications</div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">Auto-generate Reports</div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">Dark Mode</div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">Session Timeout (minutes)</div>
+                        <input type="number" class="form-control" value="30">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="settings-card">
+                <div class="card-header">
+                    <h3>Detection Parameters</h3>
+                </div>
+                <div class="card-content">
+                    <div class="setting-item">
+                        <div class="setting-label">Face Detection Confidence</div>
+                        <input type="range" min="1" max="100" value="85" class="form-control slider">
+                        <span class="slider-value">85%</span>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">Text Similarity Threshold</div>
+                        <input type="range" min="1" max="100" value="75" class="form-control slider">
+                        <span class="slider-value">75%</span>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">Motion Detection Sensitivity</div>
+                        <input type="range" min="1" max="100" value="70" class="form-control slider">
+                        <span class="slider-value">70%</span>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">Object Detection Confidence</div>
+                        <input type="range" min="1" max="100" value="80" class="form-control slider">
+                        <span class="slider-value">80%</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="settings-card">
+                <div class="card-header">
+                    <h3>Notification Settings</h3>
+                </div>
+                <div class="card-content">
+                    <div class="setting-item">
+                        <div class="setting-label">Email Notifications</div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">SMS Alerts</div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">Daily Summary</div>
+                        <label class="switch">
+                            <input type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">Critical Alerts Only</div>
+                        <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="settings-card">
+                <div class="card-header">
+                    <h3>Account Settings</h3>
+                </div>
+                <div class="card-content">
+                    <div class="setting-item">
+                        <div class="setting-label">Email Address</div>
+                        <input type="email" class="form-control" value="admin@example.com">
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">Password</div>
+                        <input type="password" class="form-control" value="********">
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">API Key</div>
+                        <div class="api-key-container">
+                            <input type="text" class="form-control" value="sk_test_12345678901234567890" readonly>
+                            <button class="btn-icon"><i class="fas fa-copy"></i></button>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <button class="btn btn-primary">Save Changes</button>
+                        <button class="btn btn-secondary">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>ProctorShield</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Support</a>
+                <a href="#">Documentation</a>
+            </div>
+            <div class="footer-copyright">
+                &copy; 2025 ProctorShield. All rights reserved.
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- JavaScript -->
+<script src="script.js"></script>
+</body>
+</html>
