@@ -72,9 +72,32 @@ public:
 // Text ko analyse krne ke lia class
 class TextAnalysis{
 public:
-    // Do text ke beech ka edit distance calculate krega jitna kam hoga utna similar honge (0.0 - 1.0 range)
+    // Do text ke beech ka edit distance calculate krega jitna kam hoga utna similar honge (0.0 - 1.0 range) aka levenshtein distance
     double EditDistance(string text1,string text2){
+        int x=text1.length();
+        int y=text2.length();
+        vector<vector<int>>arr(x+1,vector<int>(y+1));
+        for(int i=0;i<=x;i++){
+          for(int j=0;j<=y;j++){
+              if(i==0){
+                  arr[i][j]=j;
+              }
+              else if(j==0){
+                  arr[i][j]=i;
+              }
+              else if(text1[i-1]==text2[j-1])
+              {
+                  arr[i][j]=arr[i-1][j-1];
+              }
+              else
+              {
+                  arr[i][j]=min({arr[i][j-1],arr[i-1][j],arr[i-1][j-1]});
+              }
+              
 
+    }
+        }
+        return arr[x][y];
     }
 
     // Do strings ko compare kkrega agar similar hain to true return kar dega vrna false
