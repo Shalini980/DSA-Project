@@ -168,21 +168,44 @@ public:
     }
 };
 
-class TextPreprocessor{
-public:
-    string RemovePunctuation(string text){
-
-    }
-
-    string ConvertToLowerCase(string text){
-
-    }
-
-    vector<string> Tokenize(string text){
-
-    }
-};
-
+class TextPreprocessor {
+    public:
+        string RemovePunctuation(string text) {
+            string result;
+            for (char c : text) {
+                if (isalnum(c) || isspace(c)) {
+                    result += c;
+                }
+            }
+            return result;
+        }
+    
+        string ConvertToLowerCase(string text) {
+            string result;
+            for (char c : text) {
+                result += tolower(c);
+            }
+            return result;
+        }
+        vector<string> Tokenize(string text) {
+            vector<string> tokens;
+            string token;
+            for (char c : text) {
+                if (isspace(c)) {
+                    if (!token.empty()) {
+                        tokens.push_back(token);
+                        token.clear();
+                    }
+                } else {
+                    token += c;
+                }
+            }
+            if (!token.empty()) {
+                tokens.push_back(token);
+            }
+            return tokens;
+        }
+    };
 class ReportGenerator{
 public:
     void GenerateStudentReport(string studentId){
