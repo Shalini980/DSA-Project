@@ -694,7 +694,7 @@ textarea.form-control {
     width: 16px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: blue;
     transition: .4s;
 }
 
