@@ -116,15 +116,43 @@ public:
 
 
 class ProctoringSystem{
+private:
+    TextPreprocessor preprocess;
+    TextAnalysis analysis;
+    checkstring checker;
+    Logger logger;
+    DataBaseManager db;
 public:
 
     //Student ke answer aur correct answer ko analyze krega cheating detect hoti he to true return kr dega
-    bool AnalyzeText(string StudentAns, string CorrectAns){
-
-    }
+    bool AnalyzeText(string studentid,string StudentAns, string CorrectAns){
+        StudentAns = preprocess.ConvertToLowerCase(preprocess.RemovePunctuation(StudentAns));
+        CorrectAns = preprocess.ConvertToLowerCase(preprocess.RemovePunctuation(CorrectAns));
+        double similarity = analysis.CompareStrings(StudentAns, CorrectAns);
+        cout << "Similarity: " << similarity << "%" << endl;
+        bool cheating;
+        if(similarity > 80.0)
+        {
+            cheating=true;
+        }
+        if (checker.KMP(StudentAns, CorrectAns) || checker.RabinKarp(StudentAns, CorrectAns)) {
+            cheating = true;
+        }
+        if (cheating) {
+            logger.LogCheatingIncident(studentid, "High similarity or pattern match detected.");
+        } else {
+            logger.LogActivity(); 
+        }
+        db.SaveResponse(studentid, StudentAns, cheating);
+        return cheating;
+ }
 
     // Exam ka final report generaate krega 
-    void GenerateReport(){
+    void GenerateReport(string studentid){
+    vector<string> previous = db.FetchPrevResponse(studentid);
+    cout << "Report for " << studentId << endl;
+    for (const string ans : previous) {
+        cout << ans << endl;
 
     }
 };
