@@ -93,24 +93,182 @@ if (generateReportBtn) {
         // In a real application, this would fetch data and update the report results
     });
 }
+// Face detection and video controls functionality
+let video = document.getElementById('video');
+let canvas = document.getElementById('canvas');
+let context = canvas.getContext('2d');
+let faceCountElement = document.getElementById('face-count');
+let stream = null;
+let intervalId = null;
+let isPaused = false;
 
-// Video controls functionality
+// Define Flask server URL - key change to fix the 405 error
+const FLASK_URL = 'http://127.0.0.1:5000';
+
+// Function to start the camera
+async function startCamera() {
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        isPaused = false;
+        addLogEntry('Camera started', 'info');
+        intervalId = setInterval(captureFrame, 1000);
+    } catch (err) {
+        console.error("Error accessing camera:", err);
+        addLogEntry('Error accessing camera: ' + err.message, 'danger');
+        alert("Error accessing camera. Please make sure you've granted camera permissions.");
+    }
+}
+
+// Function to pause/resume the camera
+function togglePauseCamera(icon) {
+    if (isPaused) {
+        video.play();
+        intervalId = setInterval(captureFrame, 1000);
+        icon.className = 'fas fa-pause';
+        isPaused = false;
+        addLogEntry('Camera resumed', 'info');
+    } else {
+        video.pause();
+        clearInterval(intervalId);
+        icon.className = 'fas fa-play';
+        isPaused = true;
+        addLogEntry('Camera paused', 'info');
+    }
+}
+
+// Function to stop the camera
+function stopCamera() {
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        video.srcObject = null;
+        clearInterval(intervalId);
+        faceCountElement.textContent = '0';
+        addLogEntry('Camera stopped', 'info');
+    }
+}
+
+// Function to capture a screenshot
+function captureScreenshot() {
+    if (stream && !isPaused) {
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+        addLogEntry('Screenshot captured', 'info');
+    }
+}
+
+// Unified control handler using icons
 const videoControls = document.querySelectorAll('.video-controls .btn-icon');
 videoControls.forEach(control => {
-    control.addEventListener('click', function() {
-        // Handle video control functions
+    control.addEventListener('click', function () {
         const icon = this.querySelector('i');
         if (icon.classList.contains('fa-play')) {
-            console.log('Video playback started');
-        } else if (icon.classList.contains('fa-pause')) {
-            console.log('Video playback paused');
+            startCamera();
+        } else if (icon.classList.contains('fa-pause') || icon.classList.contains('fa-play')) {
+            togglePauseCamera(icon);
         } else if (icon.classList.contains('fa-stop')) {
-            console.log('Video playback stopped');
+            stopCamera();
         } else if (icon.classList.contains('fa-camera')) {
-            console.log('Screenshot captured');
+            captureScreenshot();
         }
     });
 });
+
+// Function to capture frame and send to server for face detection
+async function captureFrame() {
+    if (!video.srcObject) return;
+
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const imageData = canvas.toDataURL('image/jpeg');
+
+    try {
+        // Changed to use the FLASK_URL constant
+        const response = await fetch(`${FLASK_URL}/process_frame`, {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                // Added to ensure CORS works properly
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({ image: imageData }),
+            // Added for better CORS support
+            mode: 'cors'
+        });
+
+        const data = await response.json();
+
+        if (data.face_count !== undefined) {
+            const prevCount = parseInt(faceCountElement.textContent) || 0;
+            faceCountElement.textContent = data.face_count;
+
+            if (data.face_count > 1) {
+                addLogEntry(`Multiple faces detected: ${data.face_count} faces in frame`, 'warning');
+            } else if (data.face_count === 0 && prevCount > 0) {
+                addLogEntry('No face detected in frame', 'danger');
+            } else if (data.face_count === 1 && prevCount !== 1) {
+                addLogEntry('Face detected and verified', 'success');
+            }
+        }
+    } catch (error) {
+        console.error('Error sending frame:', error);
+        addLogEntry('Error processing video frame', 'danger');
+    }
+}
+
+// Add activity log entries
+function addLogEntry(message, type) {
+    const logEntries = document.querySelector('.log-entries');
+    if (!logEntries) return;
+
+    const now = new Date();
+    const timeString = now.toLocaleTimeString('en-GB', { hour12: false });
+
+    const logEntry = document.createElement('div');
+    logEntry.className = 'log-entry';
+    logEntry.innerHTML = `
+        <span class="log-time">${timeString}</span>
+        <span class="log-type ${type}">${type === 'info' ? 'Info' : type === 'warning' ? 'Warning' : type === 'danger' ? 'Alert' : 'Success'}</span>
+        <span class="log-message">${message}</span>
+    `;
+
+    logEntries.insertBefore(logEntry, logEntries.firstChild);
+    while (logEntries.children.length > 10) {
+        logEntries.removeChild(logEntries.lastChild);
+    }
+}
+
+// Function to fetch and display logs from server
+async function fetchServerLogs() {
+    try {
+        const response = await fetch(`${FLASK_URL}/get_logs`);
+        const data = await response.json();
+        
+        if (data.logs) {
+            const logContainer = document.querySelector('.server-logs');
+            if (logContainer) {
+                logContainer.innerHTML = '';
+                data.logs.forEach(log => {
+                    const logItem = document.createElement('div');
+                    logItem.className = 'log-entry';
+                    logItem.textContent = log;
+                    logContainer.appendChild(logItem);
+                });
+            }
+        }
+    } catch (error) {
+        console.error('Error fetching server logs:', error);
+    }
+}
+
+// Handle tab visibility to save resources
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden && intervalId) {
+        clearInterval(intervalId);
+        intervalId = null;
+    } else if (!document.hidden && video.srcObject && !isPaused && !intervalId) {
+        intervalId = setInterval(captureFrame, 1000);
+    }
+});
+
 
 // Save settings handler
 const saveSettingsBtn = document.querySelector('#settings .btn-primary');

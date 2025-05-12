@@ -1,0 +1,92 @@
+2025-05-12 11:19:33,671 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-05-12 11:19:33,672 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-05-12 11:19:33,681 - werkzeug - INFO -  * Restarting with stat
+2025-05-12 11:19:35,044 - werkzeug - WARNING -  * Debugger is active!
+2025-05-12 11:19:35,072 - werkzeug - INFO -  * Debugger PIN: 271-969-389
+2025-05-12 11:20:25,282 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:25] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:26,214 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:26,219 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:26] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:29,089 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:29,091 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:29] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:29,107 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:29,108 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:29] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:29,110 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:29,114 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:29] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:29,188 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:29,189 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:29] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:30,198 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:30,199 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:30] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:31,172 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:31] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:31,199 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:31,201 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:31] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:32,210 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:32,211 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:32] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:33,210 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:33,212 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:33] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:34,224 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:34,226 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:34] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:35,229 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:35,231 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:35] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:36,264 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:36] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:36,309 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:36,310 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:36] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:37,312 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:37,313 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:37] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:38,313 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:38,315 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:38] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:39,315 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:39,316 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:39] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:40,337 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:40,339 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:40] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:41,308 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:41] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:41,355 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:41,356 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:41] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:42,368 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:42,369 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:42] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:43,383 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:43,384 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:43] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:44,396 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:44,401 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:44] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:45,419 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:45,420 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:45] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:46,413 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:46] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:46,444 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:46,446 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:46] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:47,466 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:47,467 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:47] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:48,471 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:48,472 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:48] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:49,521 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:49,522 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:49] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:50,564 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:50,566 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:50] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:51,548 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:51] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:51,599 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:51,600 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:51] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:52,715 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:52,716 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:52] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:53,714 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:53,716 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:53] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:54,716 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:54,717 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:54] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:55,760 - proctor_shield - INFO - Detected 0 faces in the frame
+2025-05-12 11:20:55,761 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:55] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:56,737 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:56] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:56,789 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:56,790 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:56] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:57,840 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:57,842 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:57] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:58,847 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:58,848 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:58] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:20:59,853 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:20:59,855 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:20:59] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:21:00,858 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:21:00,859 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:21:00] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:21:01,815 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:21:01] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-05-12 11:21:01,866 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:21:01,867 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:21:01] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:21:02,853 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:21:02,855 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:21:02] "POST /process_frame HTTP/1.1" 200 -
+2025-05-12 11:21:03,872 - proctor_shield - INFO - Detected 1 faces in the frame
+2025-05-12 11:21:03,873 - werkzeug - INFO - 127.0.0.1 - - [12/May/2025 11:21:03] "POST /process_frame HTTP/1.1" 200 -

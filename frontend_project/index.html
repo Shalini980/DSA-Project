@@ -220,97 +220,103 @@
         </section>
         
         <!-- Video Surveillance Section -->
-        <section id="video-surveillance">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Video Surveillance</h2>
-                    <p>Real-time monitoring and behavior detection</p>
-                </div>
-                
-                <div class="video-container">
-                    <div class="video-feed">
-                        <div class="video-placeholder">
-                            <i class="fas fa-video"></i>
-                            <p>Camera Feed</p>
+                <section id="video-surveillance">
+                    <div class="container">
+                        <div class="section-header">
+                            <h2>Video Surveillance</h2>
+                            <p>Real-time monitoring and behavior detection</p>
                         </div>
-                        <div class="video-controls">
-                            <button class="btn-icon"><i class="fas fa-play"></i></button>
-                            <button class="btn-icon"><i class="fas fa-pause"></i></button>
-                            <button class="btn-icon"><i class="fas fa-stop"></i></button>
-                            <button class="btn-icon"><i class="fas fa-camera"></i></button>
+                        
+                        <div class="video-container">
+                            <!-- Updated Video Feed -->
+                            <div class="video-feed">
+                                <video id="video" width="100%" height="auto" autoplay></video>
+                                <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+                                <div class="face-count-display">
+                                    <i class="fas fa-users"></i>
+                                    <span>Faces detected: <span id="face-count">0</span></span>
+                                </div>
+                                <div class="video-controls">
+                                    <button class="btn-icon" id="start-camera-btn"><i class="fas fa-play"></i></button>
+                                    <button class="btn-icon" id="pause-camera-btn"><i class="fas fa-pause"></i></button>
+                                    <button class="btn-icon" id="stop-camera-btn"><i class="fas fa-stop"></i></button>
+                                    <button class="btn-icon" id="screenshot-btn"><i class="fas fa-camera"></i></button>
+                                </div>
+                            </div>
+
+                            <!-- Detection Panel -->
+                            <div class="detection-panel">
+                                <h3>Detection Settings</h3>
+
+                                <div class="detection-setting">
+                                    <div class="setting-label">Face Detection</div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+
+                                <div class="detection-setting">
+                                    <div class="setting-label">Eye Tracking</div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+
+                                <div class="detection-setting">
+                                    <div class="setting-label">Motion Detection</div>
+                                    <label class="switch">
+                                        <input type="checkbox" checked>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+
+                                <div class="detection-setting">
+                                    <div class="setting-label">Object Detection</div>
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+
+                                <h3>Detection Sensitivity</h3>
+                                <div class="detection-setting">
+                                    <div class="setting-label">Motion Sensitivity</div>
+                                    <input type="range" min="1" max="100" value="70" class="form-control slider">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Activity Log -->
+                        <div class="activity-log">
+                            <h3>Activity Log</h3>
+                            <div class="log-entries">
+                                <div class="log-entry">
+                                    <span class="log-time">10:42:15</span>
+                                    <span class="log-type warning">Multiple faces detected</span>
+                                    <span class="log-message">2 faces detected in frame</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-time">10:41:03</span>
+                                    <span class="log-type success">Face verified</span>
+                                    <span class="log-message">Student identity confirmed</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-time">10:40:27</span>
+                                    <span class="log-type danger">Phone detected</span>
+                                    <span class="log-message">Unauthorized device detected</span>
+                                </div>
+                                <div class="log-entry">
+                                    <span class="log-time">10:39:15</span>
+                                    <span class="log-type info">Session started</span>
+                                    <span class="log-message">Video monitoring initialized</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    
-                    <div class="detection-panel">
-                        <h3>Detection Settings</h3>
-                        
-                        <div class="detection-setting">
-                            <div class="setting-label">Face Detection</div>
-                            <label class="switch">
-                                <input type="checkbox" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        
-                        <div class="detection-setting">
-                            <div class="setting-label">Eye Tracking</div>
-                            <label class="switch">
-                                <input type="checkbox" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        
-                        <div class="detection-setting">
-                            <div class="setting-label">Motion Detection</div>
-                            <label class="switch">
-                                <input type="checkbox" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        
-                        <div class="detection-setting">
-                            <div class="setting-label">Object Detection</div>
-                            <label class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
-                        </div>
-                        
-                        <h3>Detection Sensitivity</h3>
-                        <div class="detection-setting">
-                            <div class="setting-label">Motion Sensitivity</div>
-                            <input type="range" min="1" max="100" value="70" class="form-control slider">
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="activity-log">
-                    <h3>Activity Log</h3>
-                    <div class="log-entries">
-                        <div class="log-entry">
-                            <span class="log-time">10:42:15</span>
-                            <span class="log-type warning">Multiple faces detected</span>
-                            <span class="log-message">2 faces detected in frame</span>
-                        </div>
-                        <div class="log-entry">
-                            <span class="log-time">10:41:03</span>
-                            <span class="log-type success">Face verified</span>
-                            <span class="log-message">Student identity confirmed</span>
-                        </div>
-                        <div class="log-entry">
-                            <span class="log-time">10:40:27</span>
-                            <span class="log-type danger">Phone detected</span>
-                            <span class="log-message">Unauthorized device detected</span>
-                        </div>
-                        <div class="log-entry">
-                            <span class="log-time">10:39:15</span>
-                            <span class="log-type info">Session started</span>
-                            <span class="log-message">Video monitoring initialized</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+                </section>
+
         
         <!-- Reports Section -->
         <section id="reports">
