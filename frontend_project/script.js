@@ -44,7 +44,106 @@ navLinks.forEach(link => {
         }
     });
 });
-
+// Text Analysis section - Add event listeners for the analysis button
+const analyzeBtn = document.querySelector('#text-analysis .btn-primary');
+if (analyzeBtn) {
+    analyzeBtn.addEventListener('click', async function() {
+        const text1 = document.querySelector('#text-analysis .text-input:first-of-type textarea').value;
+        const text2 = document.querySelector('#text-analysis .text-input:last-of-type textarea').value;
+        
+        if (!text1 || !text2) {
+            alert('Please enter both text samples');
+            return;
+        }
+        
+        const algorithm = document.getElementById('text-algorithm').value;
+        const threshold = document.getElementById('similarity-threshold').value;
+        
+        // Connect to the C++ backend for text analysis
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/analyze`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    text1: text1,
+                    text2: text2,
+                    algorithm: algorithm,
+                    threshold: threshold
+                }),
+                mode: 'cors'
+            });
+            
+            const data = await response.json();
+            
+            if (data.error) {
+                alert('Error: ' + data.error);
+                return;
+            }
+            
+            // Update the results UI
+            const resultsSummary = document.querySelector('.result-summary');
+            const meterFill = resultsSummary.querySelector('.meter-fill');
+            const similarityValue = resultsSummary.querySelector('.similarity-value');
+            
+            meterFill.style.width = `${data.similarity}%`;
+            similarityValue.textContent = `${Math.round(data.similarity)}% Similar`;
+            
+            // Show the results container
+            document.getElementById('textResults').style.display = 'block';
+            
+            // Highlight matched patterns if available
+            if (data.matchedPatterns && data.matchedPatterns.length > 0) {
+                const matchedText = document.querySelector('.matched-text p');
+                let text = text1;
+                
+                // Create an array of characters with highlighting info
+                const chars = Array.from(text).map(char => ({ char, highlight: false }));
+                
+                // Mark characters to highlight based on matched patterns
+                data.matchedPatterns.forEach(match => {
+                    const pattern = match.pattern;
+                    match.positions.forEach(pos => {
+                        for (let i = 0; i < pattern.length; i++) {
+                            if (pos + i < chars.length) {
+                                chars[pos + i].highlight = true;
+                            }
+                        }
+                    });
+                });
+                
+                // Generate highlighted HTML
+                let highlightedText = '';
+                let inHighlight = false;
+                
+                for (let i = 0; i < chars.length; i++) {
+                    if (chars[i].highlight && !inHighlight) {
+                        highlightedText += '<mark>';
+                        inHighlight = true;
+                    } else if (!chars[i].highlight && inHighlight) {
+                        highlightedText += '</mark>';
+                        inHighlight = false;
+                    }
+                    
+                    highlightedText += chars[i].char;
+                }
+                
+                if (inHighlight) {
+                    highlightedText += '</mark>';
+                }
+                
+                matchedText.innerHTML = highlightedText;
+            }
+            
+        } catch (error) {
+            console.error('Error analyzing text:', error);
+            alert('Error connecting to the analysis server. Please check if the server is running.');
+        }
+    });
+}// Define C++ backend server URL - updated to connect to the C++ server instead of Flask
+const BACKEND_URL = 'http://127.0.0.1:8080';
 // Mobile menu toggle
 navToggle.addEventListener('click', function() {
     navLinksContainer.classList.toggle('show');
