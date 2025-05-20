@@ -79,7 +79,7 @@ def get_logs():
     except Exception as e:
         logger.error(f"Error reading logs: {str(e)}")
         return jsonify({"error": str(e)}), 500
-
+    
 # Run app
 if __name__ == '__main__':
     # Create log file if it doesn't exist

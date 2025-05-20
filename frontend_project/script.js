@@ -4,6 +4,63 @@
 // Configuration
 const BACKEND_URL = 'http://127.0.0.1:8080'; // C++ backend server URL
 const FLASK_URL = 'http://127.0.0.1:5000';   // Flask server URL
+
+// Login handler
+async function loginHandler(e) {
+  if (e) e.preventDefault();
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  try {
+    const res = await fetch(`${FLASK_URL}/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem('user', JSON.stringify(data.user || { email }));
+      showDashboard();
+    } else {
+      alert("Login failed: " + (data.message || 'Invalid credentials'));
+    }
+  } catch (err) {
+    console.error('Login error:', err);
+    alert('Login request failed');
+  }
+}
+
+// Signup handler
+async function signupHandler(e) {
+  if (e) e.preventDefault();
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirm-password").value;
+  if (password !== confirmPassword) {
+    alert("Passwords don't match!");
+    return;
+  }
+  try {
+    const res = await fetch(`${FLASK_URL}/signup`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password })
+    });
+    const data = await res.json();
+    if (res.ok) {
+      alert('Signup successful! Logging you in...');
+      localStorage.setItem('user', JSON.stringify({ name, email }));
+      showDashboard();
+    } else {
+      alert("Signup failed: " + (data.message || 'Please try again'));
+    }
+  } catch (err) {
+    console.error('Signup error:', err);
+    alert('Signup request failed');
+  }
+}
+
+
 const UPDATE_INTERVAL = 5000;                // Update dashboard every 5 seconds
 
 // DOM Elements
