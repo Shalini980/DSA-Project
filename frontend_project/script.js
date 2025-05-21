@@ -441,8 +441,8 @@ if (analyzeBtn) {
             alert('Error connecting to the analysis server. Please check if the server is running.');
         }
     });
-}// Define C++ backend server URL - updated to connect to the C++ server instead of Flask
-// const BACKEND_URL = 'http://127.0.0.1:8080';
+}
+
 // Mobile menu toggle
 navToggle.addEventListener('click', function() {
     navLinksContainer.classList.toggle('show');

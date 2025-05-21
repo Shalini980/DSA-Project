@@ -21,12 +21,9 @@ int levenshteinDistance(const string& s1, const string& s2) {
     vector<vector<int>> dp(m + 1, vector<int>(n + 1, 0));
     
     // Initialize the matrix
-    for (int i = 0; i <= m; ++i) {
-        dp[i][0] = i;
-    }
-    for (int j = 0; j <= n; ++j) {
-        dp[0][j] = j;
-    }
+    for (int i = 0; i <= m; ++i)dp[i][0] = i;
+    
+    for (int j = 0; j <= n; ++j)dp[0][j] = j;
     
     // Fill the matrix
     for (int i = 1; i <= m; ++i) {
@@ -34,16 +31,14 @@ int levenshteinDistance(const string& s1, const string& s2) {
             if (s1[i - 1] == s2[j - 1]) {
                 dp[i][j] = dp[i - 1][j - 1];
             } else {
-                dp[i][j] = 1 + min({dp[i - 1][j],      // Delete
-                                    dp[i][j - 1],      // Insert
-                                    dp[i - 1][j - 1]}); // Replace
+                dp[i][j] = 1 + min({dp[i - 1][j],      // Delete ke lia
+                                    dp[i][j - 1],      // Insert ke lia
+                                    dp[i - 1][j - 1]}); // Replace ke lia
             }
         }
     }
-    
     return dp[m][n];
 }
-
 // Calculate similarity percentage based on Levenshtein distance
 double levenshteinSimilarity(const string& s1, const string& s2) {
     int maxLength = max(s1.length(), s2.length());
@@ -52,6 +47,8 @@ double levenshteinSimilarity(const string& s1, const string& s2) {
     int distance = levenshteinDistance(s1, s2);
     return (1.0 - static_cast<double>(distance) / maxLength) * 100.0;
 }
+
+
 
 // 2. Rabin-Karp Algorithm
 vector<int> rabinKarp(const string& text, const string& pattern) {
@@ -70,18 +67,18 @@ vector<int> rabinKarp(const string& text, const string& pattern) {
     int h = 1;
     
     // Calculate h = pow(alphabet, m-1) % prime
-    for (int i = 0; i < m - 1; ++i) {
+    for (int i = 0; i < m - 1; i++) {
         h = (h * alphabet) % prime;
     }
     
     // Calculate initial hash values
-    for (int i = 0; i < m; ++i) {
+    for (int i = 0; i < m; i++) {
         patternHash = (alphabet * patternHash + pattern[i]) % prime;
         textHash = (alphabet * textHash + text[i]) % prime;
     }
     
     // Slide the pattern over text one by one
-    for (int i = 0; i <= n - m; ++i) {
+    for (int i = 0; i <= n - m; i++) {
         // Check if hash values match
         if (patternHash == textHash) {
             // Check each character
@@ -108,6 +105,9 @@ vector<int> rabinKarp(const string& text, const string& pattern) {
     
     return matches;
 }
+
+
+
 
 // Calculate similarity using Rabin-Karp (matching patterns)
 double rabinKarpSimilarity(const string& text1, const string& text2) {
@@ -136,6 +136,8 @@ double rabinKarpSimilarity(const string& text1, const string& text2) {
     return similarity;
 }
 
+
+
 // 3. KMP (Knuth-Morris-Pratt) Algorithm
 vector<int> computeLPSArray(const string& pattern) {
     int m = pattern.length();
@@ -150,15 +152,13 @@ vector<int> computeLPSArray(const string& pattern) {
             lps[i] = len;
             i++;
         } else {
-            if (len != 0) {
-                len = lps[len - 1];
-            } else {
+            if (len != 0)len = lps[len - 1];
+            else{
                 lps[i] = 0;
                 i++;
             }
         }
     }
-    
     return lps;
 }
 
@@ -258,7 +258,6 @@ vector<pair<string, vector<int>>> findMatchedPatterns(const string& text1, const
 int main() {
     // Initialize HTTP server
     httplib::Server server;
-    
     // Set CORS headers for all responses
     server.set_default_headers({
         {"Access-Control-Allow-Origin", "*"},
@@ -266,11 +265,15 @@ int main() {
         {"Access-Control-Allow-Headers", "Content-Type, Authorization"}
     });
     
+
     // Handle OPTIONS requests for CORS preflight
     server.Options("/(.*)", [](const httplib::Request&, httplib::Response& res) {
         res.status = 204; // No content
     });
     
+
+
+
     // Text analysis endpoint
     server.Post("/api/analyze", [](const httplib::Request& req, httplib::Response& res) {
         try {
@@ -320,6 +323,9 @@ int main() {
         }
     });
     
+
+
+
     // Server info endpoint
     server.Get("/api/info", [](const httplib::Request&, httplib::Response& res) {
         json info = {
@@ -331,9 +337,10 @@ int main() {
         res.set_content(info.dump(), "application/json");
     });
     
+
+
     // Start the server
     std::cout << "Starting ProctorShield Text Analysis Server on port 8080..." << std::endl;
     server.listen("0.0.0.0", 8080);
-    
     return 0;
 }
