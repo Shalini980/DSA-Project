@@ -167,85 +167,73 @@ vector<int> kmpSearch(const string& text, const string& pattern) {
     int n = text.length();
     int m = pattern.length();
     
-    if (m > n || m == 0) return matches;
+    if (m > n || m == 0)return matches;
     
-    // Preprocess pattern to compute LPS array
-    vector<int> lps = computeLPSArray(pattern);
+    // compute LPS array
+    vector<int>lps = computeLPSArray(pattern);
     
-    int i = 0; // Index for text
-    int j = 0; // Index for pattern
+    int i = 0; // Index text ke lia
+    int j = 0; // Index pattern ke lia
     
     while (i < n) {
         if (pattern[j] == text[i]) {
             i++;
             j++;
         }
-        
         if (j == m) {
-            // Found a match
             matches.push_back(i - j);
             j = lps[j - 1];
         } else if (i < n && pattern[j] != text[i]) {
-            if (j != 0) {
-                j = lps[j - 1];
-            } else {
-                i++;
-            }
+            if (j != 0)j = lps[j - 1];
+            else i++;
         }
     }
-    
     return matches;
 }
 
-// Calculate similarity using KMP (matching patterns)
 double kmpSimilarity(const string& text1, const string& text2) {
     if (text1.empty() || text2.empty()) {
         return text1.empty() && text2.empty() ? 100.0 : 0.0;
     }
     
-    // Use the shorter text as pattern to search in the longer text
     const string& pattern = text1.length() <= text2.length() ? text1 : text2;
     const string& text = text1.length() <= text2.length() ? text2 : text1;
     
     int totalMatches = 0;
     int substrLength = static_cast<int>(min(pattern.length(), static_cast<size_t>(10))); // Use reasonable substr size
     
-    // Try multiple substrings from the pattern
     for (size_t i = 0; i + substrLength <= pattern.length(); i += substrLength / 2) {
         string substr = pattern.substr(i, substrLength);
         vector<int> matches = kmpSearch(text, substr);
         totalMatches += matches.size();
     }
     
-    // Calculate similarity based on matches found
     double maxPossibleMatches = pattern.length() / (substrLength / 2.0);
     double similarity = min(100.0, (totalMatches / maxPossibleMatches) * 100.0);
     
     return similarity;
 }
 
-// Function to find matched patterns for highlighting
+
 vector<pair<string, vector<int>>> findMatchedPatterns(const string& text1, const string& text2) {
     vector<pair<string, vector<int>>> matchedPatterns;
     
-    // Find common substrings of at least 4 characters
     int minMatchLength = 4;
     
-    // For simplicity, we'll search from the shorter text to the longer one
     const string& pattern = text1.length() <= text2.length() ? text1 : text2;
     const string& text = text1.length() <= text2.length() ? text2 : text1;
     
-    // Try different sliding windows of the pattern
+    //sliding windows use kara he pattern ke lia
     for (size_t i = 0; i + minMatchLength <= pattern.length(); ++i) {
         for (size_t len = minMatchLength; i + len <= pattern.length(); ++len) {
             string substr = pattern.substr(i, len);
             
-            // Use KMP for efficient pattern matching
+            // KMP use kara he efficient pattern matching ke lia 
             vector<int> positions = kmpSearch(text, substr);
             
             if (!positions.empty()) {
                 matchedPatterns.push_back({substr, positions});
-                // Skip ahead to avoid overlapping patterns
+                // Skip ahead
                 i += len - 1;
                 break;
             }
@@ -271,8 +259,6 @@ int main() {
         res.status = 204; // No content
     });
     
-
-
 
     // Text analysis endpoint
     server.Post("/api/analyze", [](const httplib::Request& req, httplib::Response& res) {
@@ -323,10 +309,6 @@ int main() {
         }
     });
     
-
-
-
-    // Server info endpoint
     server.Get("/api/info", [](const httplib::Request&, httplib::Response& res) {
         json info = {
             {"name", "ProctorShield Text Analysis Server"},
@@ -338,8 +320,6 @@ int main() {
     });
     
 
-
-    // Start the server
     std::cout << "Starting ProctorShield Text Analysis Server on port 8080..." << std::endl;
     server.listen("0.0.0.0", 8080);
     return 0;
