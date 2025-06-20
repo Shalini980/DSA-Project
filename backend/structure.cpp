@@ -111,9 +111,7 @@ vector<int> rabinKarp(const string& text, const string& pattern) {
 
 // Calculate similarity using Rabin-Karp (matching patterns)
 double rabinKarpSimilarity(const string& text1, const string& text2) {
-    if (text1.empty() || text2.empty()) {
-        return text1.empty() && text2.empty() ? 100.0 : 0.0;
-    }
+    
     
     // Use the shorter text as pattern to search in the longer text
     const string& pattern = text1.length() <= text2.length() ? text1 : text2;

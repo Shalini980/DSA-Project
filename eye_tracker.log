@@ -404,3 +404,242 @@
 2025-06-20 08:59:25,045 - proctor_shield - INFO - Eye tracking reset
 2025-06-20 08:59:25,047 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 08:59:25] "POST /reset_eye_tracking HTTP/1.1" 200 -
 2025-06-20 08:59:29,505 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 08:59:29] "[33mGET /api/video-sessions HTTP/1.1[0m" 404 -
+2025-06-20 09:27:47,209 - proctor_shield - INFO - Starting Eye Tracking Server...
+2025-06-20 09:27:47,304 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-06-20 09:27:47,305 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-06-20 09:27:47,308 - werkzeug - INFO -  * Restarting with stat
+2025-06-20 09:27:48,449 - proctor_shield - INFO - Starting Eye Tracking Server...
+2025-06-20 09:27:48,503 - werkzeug - WARNING -  * Debugger is active!
+2025-06-20 09:27:48,513 - werkzeug - INFO -  * Debugger PIN: 806-521-458
+2025-06-20 09:30:09,644 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:09] "OPTIONS /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:30:09,695 - proctor_shield - INFO - Eye tracking reset
+2025-06-20 09:30:09,698 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:09] "POST /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:30:10,832 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:10] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:13,849 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:30:13,869 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:13] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:14,047 - proctor_shield - INFO - Detected 1 faces, 0 eyes
+2025-06-20 09:30:14,050 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:14] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:14,052 - proctor_shield - INFO - Detected 1 faces, 0 eyes
+2025-06-20 09:30:14,055 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:14] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:14,055 - proctor_shield - INFO - Detected 1 faces, 0 eyes
+2025-06-20 09:30:14,062 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:14] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:14,815 - proctor_shield - INFO - Eye movement detected: 63.63961030678928 pixels, direction: center
+2025-06-20 09:30:14,821 - proctor_shield - INFO - Eye tracking calibrated
+2025-06-20 09:30:14,825 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:30:14,827 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:14,861 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:14] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:15,777 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:30:15,778 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:15,780 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:15] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:16,692 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:16] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:16,804 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:30:16,807 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:16,809 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:16] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:17,773 - proctor_shield - INFO - Detected 0 faces, 0 eyes
+2025-06-20 09:30:17,777 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:17] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:18,834 - proctor_shield - INFO - Detected 0 faces, 0 eyes
+2025-06-20 09:30:18,836 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:18] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:19,889 - proctor_shield - INFO - Eye movement detected: 41.23105625617661 pixels, direction: unknown
+2025-06-20 09:30:19,898 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:30:19,901 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:19,905 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:19] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:20,860 - proctor_shield - INFO - Detected 1 faces, 0 eyes
+2025-06-20 09:30:20,864 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:20] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:21,862 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:21] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:21,978 - proctor_shield - INFO - Eye movement detected: 29.427877939124322 pixels, direction: unknown
+2025-06-20 09:30:21,980 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:30:21,983 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:21,985 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:21] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:23,023 - proctor_shield - INFO - Eye movement detected: 79.30952023559341 pixels, direction: center
+2025-06-20 09:30:23,024 - proctor_shield - INFO - Detected 1 faces, 3 eyes
+2025-06-20 09:30:23,025 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:23,027 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:23] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:24,058 - proctor_shield - INFO - Detected 1 faces, 3 eyes
+2025-06-20 09:30:24,059 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:24,062 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:24] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:24,332 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:24] "OPTIONS /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:30:24,337 - proctor_shield - INFO - Eye tracking reset
+2025-06-20 09:30:24,338 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:24] "POST /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:30:53,304 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:53] "OPTIONS /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:30:53,338 - proctor_shield - INFO - Eye tracking reset
+2025-06-20 09:30:53,342 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:53] "POST /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:30:54,292 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:54] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:54,378 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:30:54,382 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:54] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:55,392 - proctor_shield - INFO - Eye movement detected: 20.223748416156685 pixels, direction: center
+2025-06-20 09:30:55,392 - proctor_shield - INFO - Eye tracking calibrated
+2025-06-20 09:30:55,393 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:30:55,394 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:55,395 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:55] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:56,440 - proctor_shield - INFO - Eye movement detected: 46.52956049652737 pixels, direction: unknown
+2025-06-20 09:30:56,441 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:30:56,442 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:56,444 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:56] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:57,425 - proctor_shield - INFO - Eye movement detected: 27.018512172212592 pixels, direction: unknown
+2025-06-20 09:30:57,425 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:30:57,426 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:57,427 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:57] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:58,460 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:30:58,461 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:58,462 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:58] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:30:59,378 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:59] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:30:59,457 - proctor_shield - INFO - Eye movement detected: 18.027756377319946 pixels, direction: center
+2025-06-20 09:30:59,458 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:30:59,458 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:30:59,459 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:30:59] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:00,474 - proctor_shield - INFO - Detected 0 faces, 0 eyes
+2025-06-20 09:31:00,475 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:00] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:01,508 - proctor_shield - INFO - Eye movement detected: 12.806248474865697 pixels, direction: center
+2025-06-20 09:31:01,508 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:01,509 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:01,511 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:01] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:02,542 - proctor_shield - INFO - Eye movement detected: 13.038404810405298 pixels, direction: center
+2025-06-20 09:31:02,549 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:02,550 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:02,551 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:02] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:03,596 - proctor_shield - INFO - Eye movement detected: 10.198039027185569 pixels, direction: center
+2025-06-20 09:31:03,598 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:03,600 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:03,601 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:03] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:04,519 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:04] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:04,611 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:04,612 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:04,614 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:04] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:05,621 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:05,622 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:05,623 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:05] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:06,679 - proctor_shield - INFO - Eye movement detected: 10.63014581273465 pixels, direction: center
+2025-06-20 09:31:06,679 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:06,680 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:06,682 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:06] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:07,701 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:07,702 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:07,703 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:07] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:08,718 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:08,722 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:08,723 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:08] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:09,634 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:09] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:09,727 - proctor_shield - INFO - Eye movement detected: 104.6900186264192 pixels, direction: center
+2025-06-20 09:31:09,728 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:09,728 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:09,730 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:09] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:10,736 - proctor_shield - INFO - Eye movement detected: 44.294469180700204 pixels, direction: center
+2025-06-20 09:31:10,737 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:10,740 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:10,741 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:10] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:11,743 - proctor_shield - INFO - Eye movement detected: 92.0 pixels, direction: center
+2025-06-20 09:31:11,743 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:11,744 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:11,745 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:11] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:12,750 - proctor_shield - INFO - Eye movement detected: 27.16615541441225 pixels, direction: center
+2025-06-20 09:31:12,751 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:12,752 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:12,752 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:12] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:13,768 - proctor_shield - INFO - Eye movement detected: 40.44749683231337 pixels, direction: center
+2025-06-20 09:31:13,768 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:13,769 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:13,770 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:13] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:14,697 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:14] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:14,805 - proctor_shield - INFO - Eye movement detected: 34.058772731852805 pixels, direction: center
+2025-06-20 09:31:14,806 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:14,807 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:14,809 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:14] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:15,789 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:15,789 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:15,792 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:15] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:15,869 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:15] "OPTIONS /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:31:15,874 - proctor_shield - INFO - Eye tracking reset
+2025-06-20 09:31:15,876 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:15] "POST /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:31:18,064 - proctor_shield - INFO - Eye tracking reset
+2025-06-20 09:31:18,065 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:18] "POST /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:31:19,196 - proctor_shield - INFO - Eye tracking calibrated
+2025-06-20 09:31:19,197 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:19,199 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:19] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:20,100 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:20] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:20,197 - proctor_shield - INFO - Eye movement detected: 99.04544411531506 pixels, direction: center
+2025-06-20 09:31:20,197 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:20,198 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:20,201 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:20] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:21,242 - proctor_shield - INFO - Eye movement detected: 91.19758768739445 pixels, direction: unknown
+2025-06-20 09:31:21,243 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:31:21,244 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:21,246 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:21] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:22,241 - proctor_shield - INFO - Eye movement detected: 20.09975124224178 pixels, direction: center
+2025-06-20 09:31:22,244 - proctor_shield - INFO - Detected 1 faces, 3 eyes
+2025-06-20 09:31:22,244 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:22,246 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:22] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:23,277 - proctor_shield - INFO - Eye movement detected: 31.064449134018133 pixels, direction: center
+2025-06-20 09:31:23,278 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:23,279 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:23,281 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:23] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:24,292 - proctor_shield - INFO - Detected 0 faces, 0 eyes
+2025-06-20 09:31:24,295 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:24] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:25,178 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:25] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:25,266 - proctor_shield - INFO - Eye movement detected: 111.11255554616679 pixels, direction: center
+2025-06-20 09:31:25,268 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:25,269 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:25,271 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:25] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:26,332 - proctor_shield - INFO - Detected 0 faces, 0 eyes
+2025-06-20 09:31:26,334 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:26] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:27,353 - proctor_shield - INFO - Eye movement detected: 12.206555615733702 pixels, direction: unknown
+2025-06-20 09:31:27,354 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:31:27,355 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:27,357 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:27] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:28,404 - proctor_shield - INFO - Eye movement detected: 61.1310068623117 pixels, direction: center
+2025-06-20 09:31:28,406 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:28,407 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:28,409 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:28] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:29,420 - proctor_shield - INFO - Eye movement detected: 15.132745950421556 pixels, direction: center
+2025-06-20 09:31:29,421 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:29,423 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:29,426 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:29] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:30,366 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:30] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:30,479 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:30,480 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:30,481 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:30] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:31,443 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:31,444 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:31,445 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:31] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:32,475 - proctor_shield - INFO - Eye movement detected: 90.44888059008801 pixels, direction: unknown
+2025-06-20 09:31:32,476 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:31:32,477 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:32,478 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:32] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:33,502 - proctor_shield - INFO - Eye movement detected: 11.180339887498949 pixels, direction: center
+2025-06-20 09:31:33,504 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:33,507 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:33,508 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:33] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:34,529 - proctor_shield - INFO - Detected 1 faces, 0 eyes
+2025-06-20 09:31:34,531 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:34] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:35,529 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:35] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:35,638 - proctor_shield - INFO - Eye movement detected: 19.4164878389476 pixels, direction: center
+2025-06-20 09:31:35,649 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:35,666 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:35,681 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:35] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:36,659 - proctor_shield - INFO - Eye movement detected: 13.601470508735444 pixels, direction: unknown
+2025-06-20 09:31:36,676 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:31:36,690 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:36,708 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:36] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:37,643 - proctor_shield - INFO - Detected 0 faces, 0 eyes
+2025-06-20 09:31:37,646 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:37] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:38,695 - proctor_shield - INFO - Detected 0 faces, 0 eyes
+2025-06-20 09:31:38,698 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:38] "POST /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:39,731 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:31:39,732 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:39,733 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:39] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:40,635 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:40] "OPTIONS /process_frame HTTP/1.1" 200 -
+2025-06-20 09:31:40,842 - proctor_shield - INFO - Eye movement detected: 11.180339887498949 pixels, direction: unknown
+2025-06-20 09:31:40,845 - proctor_shield - INFO - Detected 1 faces, 1 eyes
+2025-06-20 09:31:40,847 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:40,849 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:40] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:41,766 - proctor_shield - INFO - Eye movement detected: 27.85677655436824 pixels, direction: center
+2025-06-20 09:31:41,767 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:41,767 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:41,772 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:41] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:42,808 - proctor_shield - INFO - Eye movement detected: 12.165525060596439 pixels, direction: center
+2025-06-20 09:31:42,809 - proctor_shield - INFO - Detected 1 faces, 2 eyes
+2025-06-20 09:31:42,810 - proctor_shield - ERROR - Error processing frame: Object of type bool_ is not JSON serializable
+2025-06-20 09:31:42,812 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:42] "[35m[1mPOST /process_frame HTTP/1.1[0m" 500 -
+2025-06-20 09:31:42,991 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:42] "OPTIONS /reset_eye_tracking HTTP/1.1" 200 -
+2025-06-20 09:31:42,995 - proctor_shield - INFO - Eye tracking reset
+2025-06-20 09:31:42,998 - werkzeug - INFO - 127.0.0.1 - - [20/Jun/2025 09:31:42] "POST /reset_eye_tracking HTTP/1.1" 200 -
