@@ -482,12 +482,14 @@ sliders.forEach(slider => {
     }
 });
 
-
 // Face detection and video controls functionality
 let video = document.getElementById('video');
 let canvas = document.getElementById('canvas');
 let context = canvas.getContext('2d');
 let faceCountElement = document.getElementById('face-count');
+let totalFacesElement = document.getElementById('total-faces');
+let statusTextElement = document.getElementById('status-text');
+let videoPlaceholder = document.getElementById('video-placeholder');
 let stream = null;
 let intervalId = null;
 let isPaused = false;
@@ -511,14 +513,21 @@ const EYE_TRACKING_CONFIG = {
     movementHistoryLimit: 10 // keep last 10 movements for analysis
 };
 
-
 // Function to start the camera
 async function startCamera() {
     try {
         stream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = stream;
         isPaused = false;
-        addLogEntry('Camera started', 'info');
+        
+        // Hide placeholder and show video
+        videoPlaceholder.style.display = 'none';
+        video.style.display = 'block';
+        
+        // Update status
+        updateVideoStatus('Recording', true);
+        addLogEntry('Camera started', 'success');
+        
         intervalId = setInterval(captureFrame, 1000);
         
         // Reset eye tracking when starting camera
@@ -526,36 +535,45 @@ async function startCamera() {
     } catch (err) {
         console.error("Error accessing camera:", err);
         addLogEntry('Error accessing camera: ' + err.message, 'danger');
+        updateVideoStatus('Error', false);
         alert("Error accessing camera. Please make sure you've granted camera permissions.");
     }
 }
 
-
 // Function to pause/resume the camera
-function togglePauseCamera(icon) {
+function togglePauseCamera(button) {
+    const icon = button.querySelector('i');
+    
     if (isPaused) {
         video.play();
         intervalId = setInterval(captureFrame, 1000);
         icon.className = 'fas fa-pause';
         isPaused = false;
+        updateVideoStatus('Recording', true);
         addLogEntry('Camera resumed', 'info');
     } else {
         video.pause();
         clearInterval(intervalId);
         icon.className = 'fas fa-play';
         isPaused = true;
-        addLogEntry('Camera paused', 'info');
+        updateVideoStatus('Paused', false);
+        addLogEntry('Camera paused', 'warning');
     }
 }
-
 
 // Function to stop the camera
 function stopCamera() {
     if (stream) {
         stream.getTracks().forEach(track => track.stop());
         video.srcObject = null;
+        video.style.display = 'none';
+        videoPlaceholder.style.display = 'flex';
+        
         clearInterval(intervalId);
         faceCountElement.textContent = '0';
+        if (totalFacesElement) totalFacesElement.textContent = '0';
+        
+        updateVideoStatus('Ready', false);
         addLogEntry('Camera stopped', 'info');
         
         // Reset eye tracking
@@ -567,10 +585,43 @@ function stopCamera() {
 function captureScreenshot() {
     if (stream && !isPaused) {
         context.drawImage(video, 0, 0, canvas.width, canvas.height);
-        addLogEntry('Screenshot captured', 'info');
+        
+        // Create download link for screenshot
+        const link = document.createElement('a');
+        link.download = `screenshot_${new Date().getTime()}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+        
+        addLogEntry('Screenshot captured and downloaded', 'success');
+    } else {
+        addLogEntry('Cannot capture screenshot - camera not active', 'warning');
     }
 }
 
+// Function to toggle fullscreen
+function toggleFullscreen() {
+    const videoWrapper = document.querySelector('.video-wrapper');
+    
+    if (!document.fullscreenElement) {
+        videoWrapper.requestFullscreen().catch(err => {
+            console.error('Error attempting to enable fullscreen:', err);
+        });
+    } else {
+        document.exitFullscreen();
+    }
+}
+
+// Function to update video status indicator
+function updateVideoStatus(text, isActive) {
+    if (statusTextElement) {
+        statusTextElement.textContent = text;
+    }
+    
+    const statusIndicator = document.querySelector('.status-indicator');
+    if (statusIndicator) {
+        statusIndicator.className = isActive ? 'status-indicator active' : 'status-indicator';
+    }
+}
 
 // Function to reset eye tracking data
 function resetEyeTracking() {
@@ -592,8 +643,6 @@ function resetEyeTracking() {
     
     addLogEntry('Eye tracking system reset', 'info');
 }
-
-
 
 // Function to analyze eye tracking data and detect suspicious behavior
 function analyzeEyeMovement(eyeData) {
@@ -648,7 +697,6 @@ function analyzeEyeMovement(eyeData) {
     updateEyeTrackingUI(eyeData);
 }
 
-
 // Function to detect suspicious eye movement patterns
 function detectSuspiciousPatterns(eyeData) {
     const recentMovements = eyeTrackingData.movementHistory.slice(-5); // Last 5 movements
@@ -692,6 +740,13 @@ function detectSuspiciousPatterns(eyeData) {
 function triggerSuspiciousActivity(type) {
     const timestamp = new Date().toLocaleTimeString();
     
+    // Update alerts counter
+    const alertsElement = document.getElementById('alerts-today');
+    if (alertsElement) {
+        const currentAlerts = parseInt(alertsElement.textContent) || 0;
+        alertsElement.textContent = currentAlerts + 1;
+    }
+    
     // Create alert object
     const alert = {
         type: type,
@@ -699,16 +754,10 @@ function triggerSuspiciousActivity(type) {
         severity: getSeverityLevel(type)
     };
     
-    // You can extend this to send alerts to your backend, show notifications, etc.
     console.warn('PROCTORING ALERT:', alert);
-    
-    // Visual alert (you can customize this)
     showVisualAlert(alert);
-    
-    // Optional: Send alert to server for logging
     sendAlertToServer(alert);
 }
-
 
 // Function to determine severity level of different alert types
 function getSeverityLevel(type) {
@@ -717,7 +766,8 @@ function getSeverityLevel(type) {
         'rapid_eye_movements': 'high',
         'looking_away': 'medium',
         'large_movement': 'high',
-        'multiple_movements': 'high'
+        'multiple_movements': 'high',
+        'multiple_faces': 'high'
     };
     
     return severityMap[type] || 'low';
@@ -725,14 +775,16 @@ function getSeverityLevel(type) {
 
 // Function to show visual alert
 function showVisualAlert(alert) {
-    // You can customize this to show alerts in your UI
     const alertMessage = getAlertMessage(alert.type);
     
-    // Flash the border or show notification
-    document.body.style.border = '5px solid red';
-    setTimeout(() => {
-        document.body.style.border = '';
-    }, 2000);
+    // Flash the video wrapper border
+    const videoWrapper = document.querySelector('.video-wrapper');
+    if (videoWrapper) {
+        videoWrapper.style.border = '3px solid #ff4444';
+        setTimeout(() => {
+            videoWrapper.style.border = '';
+        }, 2000);
+    }
     
     // Add to activity log with high priority
     addLogEntry(`🚨 ${alertMessage}`, 'danger');
@@ -745,17 +797,16 @@ function getAlertMessage(type) {
         'rapid_eye_movements': 'Rapid eye movements - Possible cheating behavior',
         'looking_away': 'Student consistently looking away from screen',
         'large_movement': 'Large eye movement - Possible external reference',
-        'multiple_movements': 'Multiple suspicious eye movements detected'
+        'multiple_movements': 'Multiple suspicious eye movements detected',
+        'multiple_faces': 'Multiple faces detected in frame'
     };
     
     return messages[type] || 'Suspicious activity detected';
 }
 
-// Function to send alerts to server (using existing routes only)
+// Function to send alerts to server
 async function sendAlertToServer(alert) {
-    // Just log locally for now - only use your existing routes
     console.log('Alert logged locally:', alert);
-    // If you want server logging, you could append to the existing log via your /get_logs route
 }
 
 // Function to update eye tracking UI elements
@@ -775,42 +826,6 @@ function updateEyeTrackingUI(eyeData) {
         movementElement.className = eyeData.movement_detected ? 'movement-detected' : 'movement-normal';
     }
 }
-
-
-// Control handlers for your specific button IDs
-document.addEventListener('DOMContentLoaded', function() {
-    // Start camera button
-    const startBtn = document.getElementById('start-camera-btn');
-    if (startBtn) {
-        startBtn.addEventListener('click', startCamera);
-    }
-    
-    // Pause camera button
-    const pauseBtn = document.getElementById('pause-camera-btn');
-    if (pauseBtn) {
-        pauseBtn.addEventListener('click', function() {
-            const icon = this.querySelector('i');
-            togglePauseCamera(icon);
-        });
-    }
-    
-    // Stop camera button
-    const stopBtn = document.getElementById('stop-camera-btn');
-    if (stopBtn) {
-        stopBtn.addEventListener('click', stopCamera);
-    }
-    
-    // Screenshot button
-    const screenshotBtn = document.getElementById('screenshot-btn');
-    if (screenshotBtn) {
-        screenshotBtn.addEventListener('click', captureScreenshot);
-    }
-    
-    // Add eye tracking status elements to your HTML
-    addEyeTrackingStatusElements();
-});
-
-
 
 // Modified function to capture frame and send to server for face and eye detection
 async function captureFrame() {
@@ -836,12 +851,17 @@ async function captureFrame() {
         if (data.face_count !== undefined) {
             const prevCount = parseInt(faceCountElement.textContent) || 0;
             faceCountElement.textContent = data.face_count;
+            
+            // Update total faces counter
+            if (totalFacesElement) {
+                totalFacesElement.textContent = data.face_count;
+            }
 
             if (data.face_count > 1) {
                 addLogEntry(`ALERT: Multiple faces detected: ${data.face_count} faces in frame`, 'danger');
                 triggerSuspiciousActivity('multiple_faces');
             } else if (data.face_count === 0 && prevCount > 0) {
-                addLogEntry('No face detected in frame', 'danger');
+                addLogEntry('No face detected in frame', 'warning');
             } else if (data.face_count === 1 && prevCount !== 1) {
                 addLogEntry('Face detected and verified', 'success');
             }
@@ -858,10 +878,9 @@ async function captureFrame() {
     }
 }
 
-
-// Add activity log entries (updated to work with your existing log structure)
+// Add activity log entries
 function addLogEntry(message, type) {
-    const logEntries = document.querySelector('.log-entries');
+    const logEntries = document.getElementById('log-entries');
     if (!logEntries) return;
 
     const now = new Date();
@@ -871,22 +890,13 @@ function addLogEntry(message, type) {
     const logEntry = document.createElement('div');
     logEntry.className = 'log-entry';
     
-    // Map type to your existing CSS classes
-    const typeMap = {
-        'info': 'info',
-        'success': 'success', 
-        'warning': 'warning',
-        'danger': 'danger'
-    };
-    
-    const logType = typeMap[type] || 'info';
     const logLabel = type === 'info' ? 'Info' : 
                     type === 'warning' ? 'Warning' : 
                     type === 'danger' ? 'Alert' : 'Success';
 
     logEntry.innerHTML = `
         <span class="log-time">${timeString}</span>
-        <span class="log-type ${logType}">${logLabel}</span>
+        <span class="log-type ${type}">${logLabel}</span>
         <span class="log-message">${message}</span>
     `;
 
@@ -899,29 +909,151 @@ function addLogEntry(message, type) {
     }
 }
 
-// Function to fetch and display logs from server
-async function fetchServerLogs() {
-    try {
-        const response = await fetch(`${FLASK_URL}/get_logs`);
-        const data = await response.json();
-        
-        if (data.logs) {
-            const logContainer = document.querySelector('.server-logs');
-            if (logContainer) {
-                logContainer.innerHTML = '';
-                data.logs.forEach(log => {
-                    const logItem = document.createElement('div');
-                    logItem.className = 'log-entry';
-                    logItem.textContent = log;
-                    logContainer.appendChild(logItem);
-                });
-            }
-        }
-    } catch (error) {
-        console.error('Error fetching server logs:', error);
+// Control handlers for your specific button IDs
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize video placeholder
+    if (videoPlaceholder) {
+        videoPlaceholder.style.display = 'flex';
+        video.style.display = 'none';
     }
-}
-
+    
+    // Start camera button
+    const startBtn = document.getElementById('start-camera-btn');
+    if (startBtn) {
+        startBtn.addEventListener('click', startCamera);
+    }
+    
+    // Pause camera button
+    const pauseBtn = document.getElementById('pause-camera-btn');
+    if (pauseBtn) {
+        pauseBtn.addEventListener('click', function() {
+            togglePauseCamera(this);
+        });
+    }
+    
+    // Stop camera button
+    const stopBtn = document.getElementById('stop-camera-btn');
+    if (stopBtn) {
+        stopBtn.addEventListener('click', stopCamera);
+    }
+    
+    // Screenshot button
+    const screenshotBtn = document.getElementById('screenshot-btn');
+    if (screenshotBtn) {
+        screenshotBtn.addEventListener('click', captureScreenshot);
+    }
+    
+    // Fullscreen button
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', toggleFullscreen);
+    }
+    
+    // Clear log button
+    const clearLogBtn = document.getElementById('clear-log-btn');
+    if (clearLogBtn) {
+        clearLogBtn.addEventListener('click', function() {
+            const logEntries = document.getElementById('log-entries');
+            if (logEntries) {
+                logEntries.innerHTML = '';
+                addLogEntry('Activity log cleared', 'info');
+            }
+        });
+    }
+    
+    // Export log button
+    const exportLogBtn = document.getElementById('export-log-btn');
+    if (exportLogBtn) {
+        exportLogBtn.addEventListener('click', function() {
+            const logEntries = document.querySelectorAll('.log-entry');
+            let logText = 'Activity Log Export\n\n';
+            
+            logEntries.forEach(entry => {
+                const time = entry.querySelector('.log-time').textContent;
+                const type = entry.querySelector('.log-type').textContent;
+                const message = entry.querySelector('.log-message').textContent;
+                logText += `${time} [${type}] ${message}\n`;
+            });
+            
+            const blob = new Blob([logText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `activity_log_${new Date().getTime()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            addLogEntry('Activity log exported', 'success');
+        });
+    }
+    
+    // Detection toggle handlers
+    const toggles = ['face-detection', 'eye-tracking', 'motion-detection', 'object-detection', 'anomaly-detection'];
+    toggles.forEach(toggleId => {
+        const toggle = document.getElementById(toggleId + '-toggle');
+        if (toggle) {
+            toggle.addEventListener('change', function() {
+                const feature = toggleId.replace('-', ' ');
+                const status = this.checked ? 'enabled' : 'disabled';
+                addLogEntry(`${feature} ${status}`, 'info');
+            });
+        }
+    });
+    
+    // Sensitivity sliders
+    const motionSlider = document.getElementById('motion-sensitivity');
+    const motionValue = document.getElementById('motion-value');
+    if (motionSlider && motionValue) {
+        motionSlider.addEventListener('input', function() {
+            motionValue.textContent = this.value + '%';
+        });
+    }
+    
+    const accuracySlider = document.getElementById('detection-accuracy');
+    const accuracyValue = document.getElementById('accuracy-value');
+    if (accuracySlider && accuracyValue) {
+        accuracySlider.addEventListener('input', function() {
+            accuracyValue.textContent = this.value + '%';
+        });
+    }
+    
+    // Save settings button
+    const saveSettingsBtn = document.getElementById('save-settings-btn');
+    if (saveSettingsBtn) {
+        saveSettingsBtn.addEventListener('click', function() {
+            addLogEntry('Detection settings saved successfully', 'success');
+        });
+    }
+    
+    // Reset settings button
+    const resetSettingsBtn = document.getElementById('reset-settings-btn');
+    if (resetSettingsBtn) {
+        resetSettingsBtn.addEventListener('click', function() {
+            // Reset all toggles and sliders to default
+            toggles.forEach(toggleId => {
+                const toggle = document.getElementById(toggleId + '-toggle');
+                if (toggle) {
+                    toggle.checked = ['face-detection', 'eye-tracking', 'motion-detection'].includes(toggleId);
+                }
+            });
+            
+            if (motionSlider) {
+                motionSlider.value = 70;
+                motionValue.textContent = '70%';
+            }
+            
+            if (accuracySlider) {
+                accuracySlider.value = 85;
+                accuracyValue.textContent = '85%';
+            }
+            
+            addLogEntry('Settings reset to default values', 'info');
+        });
+    }
+    
+    // Add eye tracking status elements
+    addEyeTrackingStatusElements();
+});
 
 // Function to add eye tracking status elements to your existing HTML
 function addEyeTrackingStatusElements() {
@@ -930,23 +1062,24 @@ function addEyeTrackingStatusElements() {
         // Add eye tracking status after face count
         const eyeStatusDiv = document.createElement('div');
         eyeStatusDiv.className = 'eye-tracking-display';
+        eyeStatusDiv.style.cssText = 'position: absolute; top: 60px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 14px;';
         eyeStatusDiv.innerHTML = `
             <i class="fas fa-eye"></i>
             <span id="eye-status">Eyes: 0 | Direction: unknown</span>
         `;
-        faceCountDisplay.parentNode.insertBefore(eyeStatusDiv, faceCountDisplay.nextSibling);
+        faceCountDisplay.parentNode.appendChild(eyeStatusDiv);
         
         // Add movement status
         const movementStatusDiv = document.createElement('div');
         movementStatusDiv.className = 'movement-tracking-display';
+        movementStatusDiv.style.cssText = 'position: absolute; top: 90px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 14px;';
         movementStatusDiv.innerHTML = `
             <i class="fas fa-arrows-alt"></i>
             <span id="movement-status">No movement</span>
         `;
-        eyeStatusDiv.parentNode.insertBefore(movementStatusDiv, eyeStatusDiv.nextSibling);
+        faceCountDisplay.parentNode.appendChild(movementStatusDiv);
     }
 }
-
 
 // Handle tab visibility to save resources
 document.addEventListener('visibilitychange', () => {
@@ -957,14 +1090,3 @@ document.addEventListener('visibilitychange', () => {
         intervalId = setInterval(captureFrame, 1000);
     }
 });
-
-
-
-
-// Save settings handler
-const saveSettingsBtn = document.querySelector('#settings .btn-primary');
-if (saveSettingsBtn) {
-    saveSettingsBtn.addEventListener('click', function() {
-        alert('Settings saved successfully!');
-    });
-}

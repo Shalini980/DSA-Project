@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ProctorShield - AI Proctoring System</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="report.css">
+    <link rel="stylesheet" href="videoSurveillance.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <!-- Header & Navigation -->
@@ -220,228 +223,524 @@
         </section>
         
         <!-- Video Surveillance Section -->
-                <section id="video-surveillance">
-                    <div class="container">
-                        <div class="section-header">
-                            <h2>Video Surveillance</h2>
-                            <p>Real-time monitoring and behavior detection</p>
-                        </div>
-                        
-                        <div class="video-container">
-                            <!-- Updated Video Feed -->
-                            <div class="video-feed">
-                                <video id="video" width="100%" height="auto" autoplay></video>
-                                <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
-                                <div class="face-count-display">
-                                    <i class="fas fa-users"></i>
-                                    <span>Faces detected: <span id="face-count">0</span></span>
-                                </div>
-                                <div class="video-controls">
-                                    <button class="btn-icon" id="start-camera-btn"><i class="fas fa-play"></i></button>
-                                    <button class="btn-icon" id="pause-camera-btn"><i class="fas fa-pause"></i></button>
-                                    <button class="btn-icon" id="stop-camera-btn"><i class="fas fa-stop"></i></button>
-                                    <button class="btn-icon" id="screenshot-btn"><i class="fas fa-camera"></i></button>
-                                </div>
-                            </div>
-
-                            <!-- Detection Panel -->
-                            <div class="detection-panel">
-                                <h3>Detection Settings</h3>
-
-                                <div class="detection-setting">
-                                    <div class="setting-label">Face Detection</div>
-                                    <label class="switch">
-                                        <input type="checkbox" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-
-                                <div class="detection-setting">
-                                    <div class="setting-label">Eye Tracking</div>
-                                    <label class="switch">
-                                        <input type="checkbox" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-
-                                <div class="detection-setting">
-                                    <div class="setting-label">Motion Detection</div>
-                                    <label class="switch">
-                                        <input type="checkbox" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-
-                                <div class="detection-setting">
-                                    <div class="setting-label">Object Detection</div>
-                                    <label class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider round"></span>
-                                    </label>
-                                </div>
-
-                                <h3>Detection Sensitivity</h3>
-                                <div class="detection-setting">
-                                    <div class="setting-label">Motion Sensitivity</div>
-                                    <input type="range" min="1" max="100" value="70" class="form-control slider">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Activity Log -->
-                        <div class="activity-log">
-                            <h3>Activity Log</h3>
-                            <div class="log-entries">
-                                <div class="log-entry">
-                                    <span class="log-time">10:42:15</span>
-                                    <span class="log-type warning">Multiple faces detected</span>
-                                    <span class="log-message">2 faces detected in frame</span>
-                                </div>
-                                <div class="log-entry">
-                                    <span class="log-time">10:41:03</span>
-                                    <span class="log-type success">Face verified</span>
-                                    <span class="log-message">Student identity confirmed</span>
-                                </div>
-                                <div class="log-entry">
-                                    <span class="log-time">10:40:27</span>
-                                    <span class="log-type danger">Phone detected</span>
-                                    <span class="log-message">Unauthorized device detected</span>
-                                </div>
-                                <div class="log-entry">
-                                    <span class="log-time">10:39:15</span>
-                                    <span class="log-type info">Session started</span>
-                                    <span class="log-message">Video monitoring initialized</span>
-                                </div>
-                            </div>
-                        </div>
+        <section id="video-surveillance">
+            <div class="container">
+            <div class="section-header">
+                <h2><i class="fas fa-video"></i> Video Surveillance</h2>
+                <p>Advanced real-time monitoring with AI-powered behavior detection</p>
+            </div>
+        
+        <!-- Real-time Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="total-faces">0</div>
+                <div class="stat-label">Total Faces</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="active-sessions">1</div>
+                <div class="stat-label">Active Sessions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="alerts-today">3</div>
+                <div class="stat-label">Alerts Today</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="uptime">99.9%</div>
+                <div class="stat-label">System Uptime</div>
+            </div>
+        </div>
+        
+        <div class="video-container">
+            <!-- Enhanced Video Feed -->
+            <div class="video-feed">
+                <div class="video-wrapper">
+                    <video id="video" width="100%" height="auto" autoplay playsinline></video>
+                    <canvas id="canvas" width="640" height="480" style="display: none;"></canvas>
+                    
+                    <!-- Face Count Display -->
+                    <div class="face-count-display">
+                        <i class="fas fa-users"></i>
+                        <span>Faces detected: <span id="face-count">0</span></span>
                     </div>
-                </section>
+                    
+                    <!-- Video Placeholder (shown when camera is off) -->
+                    <div class="video-placeholder" id="video-placeholder">
+                        <i class="fas fa-video-slash"></i>
+                        <h3>Camera Not Active</h3>
+                        <p>Click the play button to start video surveillance</p>
+                    </div>
+                </div>
+                
+                <!-- Enhanced Video Controls -->
+                <div class="video-controls">
+                    <button class="btn-icon" id="start-camera-btn" title="Start Camera">
+                        <i class="fas fa-play"></i>
+                    </button>
+                    <button class="btn-icon" id="pause-camera-btn" title="Pause Camera">
+                        <i class="fas fa-pause"></i>
+                    </button>
+                    <button class="btn-icon" id="stop-camera-btn" title="Stop Camera">
+                        <i class="fas fa-stop"></i>
+                    </button>
+                    <button class="btn-icon" id="screenshot-btn" title="Take Screenshot">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <button class="btn-icon" id="fullscreen-btn" title="Toggle Fullscreen">
+                        <i class="fas fa-expand"></i>
+                    </button>
+                    <button class="btn-icon" id="settings-btn" title="Settings">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                    
+                    <!-- Video Status -->
+                    <div class="video-status">
+                        <div class="status-indicator"></div>
+                        <span id="status-text">Ready</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Enhanced Detection Panel -->
+            <div class="detection-panel">
+                <h3><i class="fas fa-brain"></i> AI Detection Settings</h3>
+
+                <div class="detection-setting">
+                    <div class="setting-label">
+                        <i class="fas fa-user-circle"></i>
+                        Face Detection
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="face-detection-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="detection-setting">
+                    <div class="setting-label">
+                        <i class="fas fa-eye"></i>
+                        Eye Tracking
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="eye-tracking-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="detection-setting">
+                    <div class="setting-label">
+                        <i class="fas fa-running"></i>
+                        Motion Detection
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="motion-detection-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="detection-setting">
+                    <div class="setting-label">
+                        <i class="fas fa-cube"></i>
+                        Object Detection
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="object-detection-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="detection-setting">
+                    <div class="setting-label">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Anomaly Detection
+                    </div>
+                    <label class="switch">
+                        <input type="checkbox" id="anomaly-detection-toggle">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <h3><i class="fas fa-sliders-h"></i> Detection Sensitivity</h3>
+                
+                <div class="sensitivity-control">
+                    <div class="setting-label">
+                        <i class="fas fa-tachometer-alt"></i>
+                        Motion Sensitivity
+                    </div>
+                    <input type="range" min="1" max="100" value="70" class="sensitivity-slider" id="motion-sensitivity">
+                    <div class="sensitivity-value" id="motion-value">70%</div>
+                </div>
+
+                <div class="sensitivity-control">
+                    <div class="setting-label">
+                        <i class="fas fa-search"></i>
+                        Detection Accuracy
+                    </div>
+                    <input type="range" min="1" max="100" value="85" class="sensitivity-slider" id="detection-accuracy">
+                    <div class="sensitivity-value" id="accuracy-value">85%</div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div style="margin-top: 2rem;">
+                    <button class="btn btn-primary" id="save-settings-btn">
+                        <i class="fas fa-save"></i> Save Settings
+                    </button>
+                    <button class="btn btn-secondary" id="reset-settings-btn" style="margin-top: 0.5rem;">
+                        <i class="fas fa-undo"></i> Reset to Default
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Enhanced Activity Log -->
+        <div class="activity-log">
+            <h3><i class="fas fa-clipboard-list"></i> Activity Log</h3>
+            <div class="log-entries" id="log-entries">
+                <div class="log-entry">
+                    <span class="log-time">10:42:15</span>
+                    <span class="log-type warning">Multiple Faces</span>
+                    <span class="log-message">2 faces detected simultaneously in frame</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">10:41:03</span>
+                    <span class="log-type success">Identity Verified</span>
+                    <span class="log-message">Student identity confirmed via facial recognition</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">10:40:27</span>
+                    <span class="log-type danger">Unauthorized Device</span>
+                    <span class="log-message">Mobile phone detected - potential security breach</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">10:39:45</span>
+                    <span class="log-type warning">Motion Alert</span>
+                    <span class="log-message">Unusual movement pattern detected</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">10:39:15</span>
+                    <span class="log-type info">Session Started</span>
+                    <span class="log-message">Video monitoring system initialized successfully</span>
+                </div>
+                <div class="log-entry">
+                    <span class="log-time">10:38:42</span>
+                    <span class="log-type success">System Online</span>
+                    <span class="log-message">All surveillance modules activated</span>
+                </div>
+            </div>
+            
+            <!-- Log Controls -->
+            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: flex-end;">
+                <button class="btn btn-secondary" id="clear-log-btn">
+                    <i class="fas fa-trash"></i> Clear Log
+                </button>
+                <button class="btn btn-primary" id="export-log-btn">
+                    <i class="fas fa-download"></i> Export Log
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
 
         
         <!-- Reports Section -->
         <section id="reports">
-            <div class="container">
-                <div class="section-header">
-                    <h2>Reports</h2>
-                    <p>Generate and export detailed proctoring reports</p>
+    <div class="container">
+        <div class="section-header">
+            <h2>Reports</h2>
+            <p>Generate and export detailed proctoring reports</p>
+        </div>
+       
+        <!-- Modern Filter Controls -->
+        <div class="report-controls-modern">
+            <div class="filter-grid-modern">
+                <div class="filter-group-modern">
+                    <label for="report-date"><i class="fas fa-calendar-alt"></i> Date Range</label>
+                    <select id="report-date" class="form-control-modern">
+                        <option value="today">Today</option>
+                        <option value="yesterday">Yesterday</option>
+                        <option value="week">Last 7 Days</option>
+                        <option value="month">Last 30 Days</option>
+                        <option value="all">All Time</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
                 </div>
-                
-                <div class="report-filters">
-                    <div class="filter-group">
-                        <label for="report-date">Date Range</label>
-                        <select id="report-date" class="form-control">
-                            <option value="today">Today</option>
-                            <option value="yesterday">Yesterday</option>
-                            <option value="week">Last 7 Days</option>
-                            <option value="month">Last 30 Days</option>
-                            <option value="custom">Custom Range</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="report-type">Report Type</label>
-                        <select id="report-type" class="form-control">
-                            <option value="all">All Activities</option>
-                            <option value="text">Text Similarity</option>
-                            <option value="video">Video Surveillance</option>
-                            <option value="combined">Combined Analysis</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="report-severity">Severity Level</label>
-                        <select id="report-severity" class="form-control">
-                            <option value="all">All Levels</option>
-                            <option value="low">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high">High</option>
-                            <option value="critical">Critical</option>
-                        </select>
-                    </div>
+               
+                <div class="filter-group-modern">
+                    <label for="report-type"><i class="fas fa-chart-bar"></i> Report Type</label>
+                    <select id="report-type" class="form-control-modern">
+                        <option value="all">All Activities</option>
+                        <option value="text">Text Similarity</option>
+                        <option value="video">Video Surveillance</option>
+                        <option value="combined">Combined Analysis</option>
+                    </select>
                 </div>
-                
-                <div class="action-bar">
-                    <button class="btn btn-primary">Generate Report</button>
-                    <button class="btn btn-secondary">Clear Filters</button>
-                    <button class="btn btn-outline"><i class="fas fa-download"></i> Export as PDF</button>
-<button class="btn btn-outline"><i class="fas fa-file-csv"></i> Export as CSV</button>
-</div>
+               
+                <div class="filter-group-modern">
+                    <label for="report-severity"><i class="fas fa-exclamation-triangle"></i> Severity Level</label>
+                    <select id="report-severity" class="form-control-modern">
+                        <option value="all">All Levels</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
 
-<div class="reports-container">
-    <div class="report-summary">
-        <h3>Report Summary</h3>
-        <div class="summary-stats">
-            <div class="summary-stat">
-                <div class="stat-label">Total Sessions</div>
-                <div class="stat-value">127</div>
+                <div class="filter-group-modern">
+                    <label for="report-format"><i class="fas fa-file-export"></i> Export Format</label>
+                    <select id="report-format" class="form-control-modern">
+                        <option value="pdf">PDF Report</option>
+                        <option value="csv">CSV Data</option>
+                        <option value="excel">Excel Workbook</option>
+                        <option value="json">JSON Data</option>
+                    </select>
+                </div>
             </div>
-            <div class="summary-stat">
-                <div class="stat-label">Flagged Incidents</div>
-                <div class="stat-value">23</div>
+           
+            <div class="action-bar-modern">
+                <button class="btn btn-primary-modern">
+                    <i class="fas fa-chart-line"></i>
+                    Generate Report
+                </button>
+                <button class="btn btn-secondary-modern">
+                    <i class="fas fa-filter"></i>
+                    Clear Filters
+                </button>
+                <button class="btn btn-export-modern" id="export-btn">
+                    <i class="fas fa-download"></i>
+                    Export Report
+                </button>
+                <button class="btn btn-share-modern" id="share-btn">
+                    <i class="fas fa-share-alt"></i>
+                    Share
+                </button>
             </div>
-            <div class="summary-stat">
-                <div class="stat-label">Average Score</div>
-                <div class="stat-value">84.3%</div>
+        </div>
+
+        <!-- Modern Reports Container -->
+        <div class="reports-container-modern">
+            <!-- Enhanced Summary Cards -->
+            <div class="report-summary-modern">
+                <div class="summary-grid-modern">
+                    <div class="summary-card-modern total-sessions">
+                        <div class="card-icon-modern">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="card-content-modern">
+                            <div class="stat-value-modern" data-stat="total">127</div>
+                            <div class="stat-label-modern">Total Sessions</div>
+                            <div class="stat-change-modern positive">+12% from last month</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card-modern flagged-incidents">
+                        <div class="card-icon-modern">
+                            <i class="fas fa-flag"></i>
+                        </div>
+                        <div class="card-content-modern">
+                            <div class="stat-value-modern" data-stat="flagged">23</div>
+                            <div class="stat-label-modern">Flagged Incidents</div>
+                            <div class="stat-change-modern negative">-8% from last month</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card-modern average-score">
+                        <div class="card-icon-modern">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="card-content-modern">
+                            <div class="stat-value-modern" data-stat="average">84.3%</div>
+                            <div class="stat-label-modern">Average Score</div>
+                            <div class="stat-change-modern positive">+5.2% from last month</div>
+                        </div>
+                    </div>
+
+                    <div class="summary-card-modern success-rate">
+                        <div class="card-icon-modern">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="card-content-modern">
+                            <div class="stat-value-modern" data-stat="success">81.9%</div>
+                            <div class="stat-label-modern">Success Rate</div>
+                            <div class="stat-change-modern positive">+3.1% from last month</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats Chart -->
+                <div class="chart-container-modern">
+                    <canvas id="reportsChart" width="400" height="200"></canvas>
+                </div>
+            </div>
+           
+            <!-- Enhanced Results Table -->
+            <div class="report-results-modern">
+                <div class="results-header-modern">
+                    <h3><i class="fas fa-table"></i> Detailed Results</h3>
+                    <div class="table-actions-modern">
+                        <button class="btn btn-sm-modern" id="refresh-table">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <div class="search-box-modern">
+                            <i class="fas fa-search"></i>
+                            <input type="text" placeholder="Search sessions..." id="table-search">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="table-container-modern">
+                    <table class="data-table-modern">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all"></th>
+                                <th>Session ID <i class="fas fa-sort"></i></th>
+                                <th>Student <i class="fas fa-sort"></i></th>
+                                <th>Date <i class="fas fa-sort"></i></th>
+                                <th>Duration <i class="fas fa-sort"></i></th>
+                                <th>Violations <i class="fas fa-sort"></i></th>
+                                <th>Status <i class="fas fa-sort"></i></th>
+                                <th>Score <i class="fas fa-sort"></i></th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="table-row-modern">
+                                <td><input type="checkbox" class="row-select"></td>
+                                <td><span class="session-id">#12345</span></td>
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">JS</div>
+                                        <span>John Smith</span>
+                                    </div>
+                                </td>
+                                <td>03/15/2025</td>
+                                <td><span class="duration-badge">1h 23m</span></td>
+                                <td><span class="violation-count warning">2</span></td>
+                                <td><span class="status-badge warning">Review</span></td>
+                                <td><span class="score-badge medium">78%</span></td>
+                                <td>
+                                    <div class="action-buttons-modern">
+                                        <button class="btn-icon-modern view" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon-modern download" title="Download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="btn-icon-modern more" title="More Options">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table-row-modern">
+                                <td><input type="checkbox" class="row-select"></td>
+                                <td><span class="session-id">#12346</span></td>
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">EJ</div>
+                                        <span>Emily Johnson</span>
+                                    </div>
+                                </td>
+                                <td>03/15/2025</td>
+                                <td><span class="duration-badge">1h 45m</span></td>
+                                <td><span class="violation-count success">0</span></td>
+                                <td><span class="status-badge success">Passed</span></td>
+                                <td><span class="score-badge high">95%</span></td>
+                                <td>
+                                    <div class="action-buttons-modern">
+                                        <button class="btn-icon-modern view" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon-modern download" title="Download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="btn-icon-modern more" title="More Options">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table-row-modern">
+                                <td><input type="checkbox" class="row-select"></td>
+                                <td><span class="session-id">#12347</span></td>
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">MB</div>
+                                        <span>Michael Brown</span>
+                                    </div>
+                                </td>
+                                <td>03/14/2025</td>
+                                <td><span class="duration-badge">2h 10m</span></td>
+                                <td><span class="violation-count danger">5</span></td>
+                                <td><span class="status-badge danger">Failed</span></td>
+                                <td><span class="score-badge low">45%</span></td>
+                                <td>
+                                    <div class="action-buttons-modern">
+                                        <button class="btn-icon-modern view" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon-modern download" title="Download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="btn-icon-modern more" title="More Options">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table-row-modern">
+                                <td><input type="checkbox" class="row-select"></td>
+                                <td><span class="session-id">#12348</span></td>
+                                <td>
+                                    <div class="student-info">
+                                        <div class="student-avatar">SW</div>
+                                        <span>Sarah Wilson</span>
+                                    </div>
+                                </td>
+                                <td>03/14/2025</td>
+                                <td><span class="duration-badge">1h 30m</span></td>
+                                <td><span class="violation-count warning">1</span></td>
+                                <td><span class="status-badge warning">Review</span></td>
+                                <td><span class="score-badge medium">82%</span></td>
+                                <td>
+                                    <div class="action-buttons-modern">
+                                        <button class="btn-icon-modern view" title="View Details">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="btn-icon-modern download" title="Download">
+                                            <i class="fas fa-download"></i>
+                                        </button>
+                                        <button class="btn-icon-modern more" title="More Options">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-modern">
+                    <div class="pagination-info">
+                        Showing 1-4 of 127 sessions
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="btn btn-sm-modern" disabled>
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="btn btn-sm-modern active">1</button>
+                        <button class="btn btn-sm-modern">2</button>
+                        <button class="btn btn-sm-modern">3</button>
+                        <span>...</span>
+                        <button class="btn btn-sm-modern">32</button>
+                        <button class="btn btn-sm-modern">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    
-    <div class="report-results">
-        <h3>Detailed Results</h3>
-        <table class="data-table">
-            <thead>
-                <tr>
-                    <th>Session ID</th>
-                    <th>Student</th>
-                    <th>Date</th>
-                    <th>Duration</th>
-                    <th>Violations</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>#12345</td>
-                    <td>John Smith</td>
-                    <td>03/15/2025</td>
-                    <td>1h 23m</td>
-                    <td>2</td>
-                    <td><span class="badge warning">Review</span></td>
-                    <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
-                </tr>
-                <tr>
-                    <td>#12346</td>
-                    <td>Emily Johnson</td>
-                    <td>03/15/2025</td>
-                    <td>1h 45m</td>
-                    <td>0</td>
-                    <td><span class="badge success">Passed</span></td>
-                    <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
-                </tr>
-                <tr>
-                    <td>#12347</td>
-                    <td>Michael Brown</td>
-                    <td>03/14/2025</td>
-                    <td>2h 10m</td>
-                    <td>5</td>
-                    <td><span class="badge danger">Failed</span></td>
-                    <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
-                </tr>
-                <tr>
-                    <td>#12348</td>
-                    <td>Sarah Wilson</td>
-                    <td>03/14/2025</td>
-                    <td>1h 30m</td>
-                    <td>1</td>
-                    <td><span class="badge warning">Review</span></td>
-                    <td><button class="btn-icon"><i class="fas fa-eye"></i></button></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-</div>
 </section>
 
 <!-- Settings Section -->
